@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function ProblemList() {
   const [problems, setProblems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -9,7 +11,7 @@ function ProblemList() {
   useEffect(() => {
     async function loadProblems() {
       try {
-        const response = await fetch('/api/problems')
+        const response = await fetch(`${API_URL}/problems`)
 
         if (!response.ok) {
           throw new Error('Failed to load problems')
@@ -68,4 +70,3 @@ function ProblemList() {
 }
 
 export default ProblemList
-

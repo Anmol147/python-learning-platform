@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function ProblemSolver() {
   const { slug } = useParams()
 
@@ -15,7 +17,7 @@ function ProblemSolver() {
   useEffect(() => {
     async function loadProblem() {
       try {
-        const response = await fetch(`/api/problems/${slug}`)
+        const response = await fetch(`${API_URL}/problems/${slug}`)
 
         if (!response.ok) {
           throw new Error('Problem not found')
@@ -45,7 +47,7 @@ function ProblemSolver() {
     setOutput('Running code...')
 
     try {
-      const response = await fetch('/api/execute', {
+      const response = await fetch(`${API_URL}/execute`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,25 +138,27 @@ function ProblemSolver() {
         {showHint ? 'Hide Hint' : 'Show Hint'}
       </button>
 
-    {showHint && (
-  <div style={{ marginTop: '20px' }}>
-    <h3>💡 Hint</h3>
+      {showHint && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>💡 Hint</h3>
 
-    {Array.isArray(problem.hints) && problem.hints.length > 0 ? (
-      <ul>
-        {problem.hints.map((hint, index) => (
-          <li key={index} style={{ marginBottom: '10px' }}>
-            {typeof hint === 'string'
-              ? hint
-              : hint.text || hint.content || JSON.stringify(hint)}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>No hints available for this problem.</p>
-    )}
-  </div>
-)}
+          {Array.isArray(problem.hints) && problem.hints.length > 0 ? (
+            <ul>
+              {problem.hints.map((hint, index) => (
+                <li key={index} style={{ marginBottom: '10px' }}>
+                  {typeof hint === 'string'
+                    ? hint
+                    : hint.text ||
+                      hint.content ||
+                      JSON.stringify(hint)}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No hints available for this problem.</p>
+          )}
+        </div>
+      )}
 
       {output && (
         <div style={{ marginTop: '20px' }}>
