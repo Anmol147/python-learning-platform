@@ -915,9 +915,9 @@ Do not implement these in the first version.
 
 ---
 
-# 17. Initial Prompt for Coding Agent
+# 17. Full-Project Prompt Reference
 
-Copy the following prompt into your coding agent:
+The requirements below describe the long-term MVP. For implementation order, the nine-stage roadmap in this document is authoritative. The current coding task is defined in Section 18 and ends after Stage 1.
 
 ---
 
@@ -1266,19 +1266,9 @@ Follow these rules:
 
 ### Development approach
 
-Work in these stages, verifying the app after each one:
+Work incrementally through the project's stages. Finish and verify one stage before starting another. Do not implement later-stage features early.
 
-1. React + Express health check.
-2. MongoDB + Mongoose connection.
-3. Topics, problems, and seed data.
-4. Problem UI + Monaco editor.
-5. Python runner + test cases.
-6. Progressive hints.
-7. Authentication.
-8. Progress + dashboard.
-9. Responsive polish, validation, accessibility, loading/error/empty states.
-
-Do not begin a later stage until the current one is working and the user asks you to continue.
+After each major stage, verify that the application still runs.
 
 Do not implement AI features, leaderboards, multiple programming languages, or advanced gamification in the first MVP.
 
@@ -1297,4 +1287,20 @@ When making architectural or implementation decisions:
 - If something is potentially dangerous, explain why.
 - Keep the project understandable enough for me to study and learn from it.
 
-Start with Stage 1 only. Create the Vite React client and independently runnable Express server. Add `GET /api/health`, connect the React page to it, and display loading, success, and failure states. Use a Vite `/api` proxy for local development. Add a README with exact install/run/verification commands and a `.gitignore` that protects `server/.env`. Verify the endpoint and browser response, then stop and wait for my instruction. Do not implement MongoDB, models, seed data, authentication, topics/problems, Monaco, hints, progress, submissions, or Python execution yet.
+For the current task, implement only Stage 1: the initial client/server setup and React-to-Express health check. Verify it, report the requested files and run instructions, then stop and wait for the user's next instruction.
+
+---
+
+# 18. Authoritative Coding Prompt - Stage 1
+
+Copy this prompt into a coding agent to begin implementation. Sections 1-17 remain the long-term product and architecture requirements; this prompt limits the immediate work to Stage 1.
+
+> You are an experienced full-stack developer helping me build the Python Learning Platform described in this document. I am a beginner programmer. Keep code clear, small, and easy to understand. Explain important decisions briefly, use meaningful names, and avoid unnecessary abstractions.
+>
+> **Implement Stage 1 only.** Inspect the existing workspace first and preserve existing user files and changes. Create or complete a Vite React frontend in `client/` and an independently runnable Express API in `server/`. Add `GET /api/health` returning `{ "success": true, "message": "API is running" }`. Connect the React page to this endpoint and display loading, connected, and recoverable error states. A Vite `/api` proxy is preferred for local development.
+>
+> Do not implement MongoDB/Mongoose, database models, seed data, topics, problems, Monaco, submissions, Python execution, progressive hints, authentication, or progress yet. Do not create unused future-stage scaffolding. Never read, overwrite, or commit an existing environment file or secret.
+>
+> Keep frontend API calls in a small service. Keep the server independently runnable. Add a `.gitignore` that excludes dependencies, build output, and environment files. Add a README with prerequisites, exact install/run commands, ports, the health URL, and browser verification steps. Add only the dependencies needed for Stage 1.
+>
+> Verify the API response directly and verify the React page receives it through the development setup. Also check the API-unavailable state. Run the frontend lint/build checks if configured. Report files created and modified, what the important files do, exact commands, verification results, and any limitations. Stop after Stage 1 and wait for my next instruction.

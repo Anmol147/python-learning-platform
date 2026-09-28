@@ -1,41 +1,11 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+import axios from 'axios'
 
-export const getProblems = async () => {
-  const response = await fetch(`${API_BASE_URL}/problems`);
+export async function getApiHealth() {
+  const response = await axios.get('/api/health', { timeout: 5000 })
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch problems");
+  if (!response.data.success || !response.data.message) {
+    throw new Error('The API returned an invalid health response.')
   }
 
-  return response.json();
-};
-
-export const getProblemById = async (id) => {
-  const response = await fetch(`${API_BASE_URL}/problems/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch problem");
-  }
-
-  return response.json();
-};
-
-export const getProblemHints = async (id) => {
-  const response = await fetch(`${API_BASE_URL}/problems/${id}/hints`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch hints");
-  }
-
-  return response.json();
-};
-export const getApiHealth = async () => {
-  const response = await fetch(`${API_BASE_URL}/health`);
-
-  if (!response.ok) {
-    throw new Error("API health check failed");
-  }
-
-  return response.json();
-};
+  return response.data
+}
