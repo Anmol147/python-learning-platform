@@ -1,0 +1,15 @@
+{
+  "name": "python-learning-platform-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.4",
+    "express": "^5.1.0",
+    "mongoose": "^9.10.2"
+  }
+}
