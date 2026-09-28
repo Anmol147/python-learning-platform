@@ -179,4 +179,4 @@ function ProblemSolver() {
   )
 }
 
-export default ProblemSolve
+export default ProblemSolver
